@@ -22,13 +22,17 @@ namespace Veeam
         }
         static void Main(string[] args)
         {
-            string phrase = "Это что же получается: ходишь, ходишь в школу, а потом бац - вторая смена";
-            var regex = new Regex(@"\w+");
-            var test = regex.Matches(phrase).Select(e => e.Value).ToList();
-            string[] words = phrase.Split();
-            //phrase = null;
+            var textInEnglish = "This dog eats too much vegetables after lunch";
+            var answer = textInEnglish.CreateRussianBook();
 
-            phrase.WriteInConsoleStringInformation();
+
+            //string phrase = "Это что же получается: ходишь, ходишь в школу, а потом бац - вторая смена";
+            //var regex = new Regex(@"\w+");
+            //var test = regex.Matches(phrase).Select(e => e.Value).ToList();
+            //string[] words = phrase.Split();
+            ////phrase = null;
+
+            //phrase.WriteInConsoleStringInformation();
 
             Console.ReadLine();
         }

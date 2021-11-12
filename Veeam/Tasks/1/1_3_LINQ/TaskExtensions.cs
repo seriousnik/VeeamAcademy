@@ -58,12 +58,13 @@ namespace Veeam.Tasks._1._1_3_LINQ
             }
         }
 
-        public static IEnumerable<string> GetRussianBookByPages(this string @string, int word)
-        { 
+        public static Dictionary<int, string> CreateRussianBook(this string @string)
+        {
             return new Regex(@"\w+").Matches(@string ?? "")
-                                    .Select(e => e.Value)
-                                    .GroupBy(e => e)
-                                    .
+                                    .Select((e, q) => new { Word = e.Value.Translate(), Index = q / 3 })
+                                    .GroupBy(e => e.Index)
+                                    .ToDictionary(e => e.Key, 
+                                                  e => string.Join(" ", e.Select(q => q.Word?.ToUpper())));
         }
     }
 }
