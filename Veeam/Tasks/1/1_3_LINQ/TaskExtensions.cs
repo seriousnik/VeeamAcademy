@@ -9,6 +9,7 @@ namespace Veeam.Tasks._1._1_3_LINQ
 {
     public static class TaskExtensions
     {
+        #region Task1
         public static string GetNameByDelimetersWithoutFirstThree(this IEnumerable<IName> objects, char delimeter)
         {
             if (objects == null)
@@ -16,13 +17,15 @@ namespace Veeam.Tasks._1._1_3_LINQ
 
             return string.Join(delimeter, objects.Skip(3).Select(e => e.Name));
         }
+        #endregion
 
+        #region Task2
         public static IEnumerable<IName> FilterByNameLengthAndPosition(this IEnumerable<IName> objects)
         {
             if (objects == null)
                 return null;
             var counter = objects.Count();
-            var filteredList = objects.Where(CompareNameAndNumber);
+            var filteredList = objects.Where(DoesNameLengthGreaterNumber);
             while (filteredList.Count() != counter)
             {
                 counter = filteredList.Count();
@@ -31,9 +34,11 @@ namespace Veeam.Tasks._1._1_3_LINQ
             return filteredList;
         }
 
-        public static bool CompareNameAndNumber(IName obj, int number)
+        public static bool DoesNameLengthGreaterNumber(IName obj, int number)
             => obj?.Name?.Length > number;
+        #endregion
 
+        #region Task 3
         public static IEnumerable<GroupWordInfo> GetStringInformation(this string @string)
         {
             return new Regex(@"\w+").Matches(@string ?? "")
@@ -58,6 +63,9 @@ namespace Veeam.Tasks._1._1_3_LINQ
             }
         }
 
+        #endregion
+
+        #region Task 4
         public static Dictionary<int, string> CreateRussianBook(this string @string)
         {
             return new Regex(@"\w+").Matches(@string ?? "")
@@ -66,5 +74,6 @@ namespace Veeam.Tasks._1._1_3_LINQ
                                     .ToDictionary(e => e.Key, 
                                                   e => string.Join(" ", e.Select(q => q.Word?.ToUpper())));
         }
+        #endregion
     }
 }
